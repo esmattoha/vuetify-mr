@@ -39,7 +39,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 export default{
     data: ()=>({
         username:'',
@@ -55,8 +55,37 @@ export default{
     methods:{
         async submit(){
             if(this.$refs.form.validate()){
-                
+                return axios({
+                    method:'POST',
+                    data:{
+                        username: this.username,
+                        email: this.email,
+                        password: this.password
+                    },
+                    url:'http://localhost:8081/user/register',
+                    headers:{
+                        'Content-Type':'application/json',
+                    },
+                })
+                 .then(()=>{
+                    this.$swal(
+                        'Great',
+                        'You have been successfully registered!',
+                        'success'
+                    )
+                    this.$router.push({name:"Login"});
+                   
+                })
+                .catch((error)=>{
+                    const message = error.responce.data.message;
+                    this.$swal(
+                        'Oh ooppss!',
+                       `${message}`,
+                        'error'
+                    )
+                });
             }
+            return true;
         },
         clear(){
             this.$refs.form.reset();
