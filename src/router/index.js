@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import AddMovie from '../components/AddMovie.vue'
+import Movie from '../components/Movie.vue'
+import Register from '../components/Register'
 
 Vue.use(VueRouter)
 
@@ -19,6 +22,21 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/Contact.vue')
     }
+  },
+  {
+    path:'/movie/add',
+    name: 'AddMovie',
+    component:AddMovie
+  },
+  {
+    path:'/movies/:id',
+    name: 'Movie',
+    component:Movie
+  },
+  {
+    path:'/user/register',
+    name:'Register',
+    component: Register
   }
 ]
 
