@@ -22,6 +22,8 @@
 
 <script>
 import axios from 'axios';
+import { application } from 'express';
+import { json } from 'body-parser';
 
 export default {
   name : 'Movies',
@@ -35,12 +37,18 @@ export default {
   },
   methods:{
     async fetchMovies(){
+      const token = window.localStorage.getItem('auth');
       return axios({
         method:'get',
-        url:'http://localhost:8081/api/movies'
+        url:'http://localhost:8081/api/movies',
+        headers:{
+          authorization: `JWT ${token}`,
+         ' Content-Type': 'application/json'
+        }
       })
       .then(res =>{
         this.movies = res.data.movies ;
+        this.current_user = res.data.current_user;
       })
       .catch(err =>{
         return err ;
