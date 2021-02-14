@@ -62,7 +62,7 @@ export default{
                         email: this.email,
                         password: this.password
                     },
-                    url:'/user/register',
+                    url:'http://localhost:8081/user/register',
                     headers:{
                         'Content-Type':'application/json',
                     },
